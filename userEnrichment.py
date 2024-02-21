@@ -150,6 +150,6 @@ def userUpdate():
 
 userUpdate()
 #print(nanDrop)
-print("application will exit in 5 seconds, Thanks")
+print("Application will exit in 5 seconds, Thanks")
 time.sleep(5)
 sys.exit()

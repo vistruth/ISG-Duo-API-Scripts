@@ -30,6 +30,13 @@ admin_api = duo_client.Admin(
     ca_certs='DISABLE'
 )
 
+"""
+* Make this loop 130 time so that it can get all the users in our org
+* Also make the loop update the CSV each time
+* 65k users / 500 users per search = 130 request offset by 500 each time 
+"""
+
+
 def getBypassPlusOffset():
     offSetValue='500'
     
@@ -105,8 +112,7 @@ def getBypassPlusOffset():
 
             offSetValue = str(int(offSetValue)+500)
 
-ts= time.time()
-startTime=datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+
 getBypassPlusOffset()
 print("List of bypass codes has been generated and saved to bypassResponse.csv. Please move over to the bypassDeletion.py script to delete the list of bypass codes. Script will close in 5 seconds")
 time.sleep(5)

@@ -30,14 +30,10 @@ admin_api = duo_client.Admin(
     ca_certs='DISABLE'
 )
 
-"""
-* Make this loop 130 time so that it can get all the users in our org
-* Also make the loop update the CSV each time
-* 65k users / 500 users per search = 130 request offset by 500 each time 
-"""
 
 
-
+ts= time.time()
+startTime=datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
 bypassData = pd.read_csv("bypassResponse.csv")
 print(bypassData)
 bypassIDs = bypassData['bypass_code_id'].tolist()

@@ -3,6 +3,8 @@ workflow.txt
 responses.csv
 usernamesAndEmails.csv
 userCreation.py
+userCreation.py
+userDeletion.py
 .vscode/settings.json
 bypassResponse.csv
 userBypassCreation.py

@@ -13,14 +13,11 @@ from itertools import repeat
 import pandas as pd
 import time
 import csv
+import datetime
 
 """
 *This pulls down a list of all bypass codes and then goes through and deletes all the codes. 
-*This needs to be expanded some more so that it deals with the 500 user limit and if we want we can work in some filtering logic into it. 
-*That's all for now though 
 """
-
-
 
 keyI = integration
 keyS = secret
@@ -29,9 +26,10 @@ keyS = secret
 admin_api = duo_client.Admin(
     ikey=keyI,
     skey=keyS,
-    host='api-302859b9.duosecurity.com',
+    host=host,
     ca_certs='DISABLE'
 )
+
 """
 * Make this loop 130 time so that it can get all the users in our org
 * Also make the loop update the CSV each time
@@ -39,8 +37,8 @@ admin_api = duo_client.Admin(
 """
 
 def getBypassPlusOffset():
-
     offSetValue='500'
+    
     csv_filename='bypassResponse.csv'
    
     """
@@ -82,6 +80,7 @@ def getBypassPlusOffset():
             bypasslist.append(resp['bypass_code_id'])
                 
             print(f"CSV file '{csv_filename}' has been created successfully.")
+            
 
         for i in repeat(None, 130):
             getBypassListPlusOffset = admin_api.json_api_call(
@@ -92,54 +91,52 @@ def getBypassPlusOffset():
                     'offset': offSetValue
                 }
             )
-
+            pprint.pprint(getBypassListPlusOffset)
             for resp1 in getBypassListPlusOffset:
                 row = {
                     
-                'firstname': resp['user']['firstname'],
-                'lastname': resp['user']['lastname'],
-                'username': resp['user']['username'],
-                'fullname': resp['user']['realname'],
-                'bypass_code_id': resp['bypass_code_id']
+                'firstname': resp1['user']['firstname'],
+                'lastname': resp1['user']['lastname'],
+                'username': resp1['user']['username'],
+                'userid': resp1['user']['user_id'],
+                'bypass_code_id': resp1['bypass_code_id']
                 }
-            writer.writerow(row)
-            bypass_code_id = resp['bypass_code_id']
-            full_name = resp['user']['realname']
-            bypass_code_ids[full_name]= bypass_code_id
-                
-            bypasslist.append(resp['bypass_code_id'])
-            print(f"CSV file '{csv_filename}' has been updated with offset data." )
+                writer.writerow(row)
+                bypass_code_id = resp1['bypass_code_id']
+                full_name = resp1['user']['realname']
+                bypass_code_ids[full_name]= bypass_code_id
+                    
+                bypasslist.append(resp1['bypass_code_id'])
+                print(f"CSV file '{csv_filename}' has been updated with offset data." )
 
             offSetValue = str(int(offSetValue)+500)
 
-
+ts= time.time()
+startTime=datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
 getBypassPlusOffset()
 
-print("Files have been updated with all the needed information. Please validate the csv. Application is exiting in 5 seconds")
+
+bypassData = pd.read_csv("bypassResponse.csv")
+print(bypassData)
+bypassIDs = bypassData['bypass_code_id'].tolist()
+codesDeleted = 0
+for i in bypassIDs:
+    bypassDeletion = admin_api.json_api_call(
+        'DELETE',
+        f"/admin/v1/bypass_codes/{i}",
+        {}
+    )
+    pprint.pprint("Bypass code has been deleted")
+    codesDeleted = codesDeleted + 1
+
+
+
+ts2 = time.time()
+endTime=datetime.datetime.fromtimestamp(ts2).strftime('%Y-%m-%d %H:%M:%S')
+
+print(codesDeleted, "codes have been deleted. Application is exiting in 5 seconds")
+print(startTime)
+print(endTime)
 time.sleep(5)
 sys.exit()
-    
-    
-'''
-    bypass_removal=[]
-    for code in bypasslist:
-        bypass_removal.append(admin_api.json_api_call(
-            'DELETE',
-            f'/admin/v1/bypass_codes/{code}',
-            {}
-            ))    
-        pprint.pprint(bypass_removal)
-
-
-
-    print(bypass_code_ids)
-    
-
-
-    create_code = admin_api.json_api_call(
-        'POST',
-        '/admin/v1/users/[user_id]/bypass_codes'
-                                        
-                            )
-
-'''
+   

@@ -83,7 +83,7 @@ def getBypassPlusOffset():
             print(f"CSV file '{csv_filename}' has been created successfully.")
             
 
-        for i in repeat(None, 130):
+        for i in repeat(None, 1300):
             getBypassListPlusOffset = admin_api.json_api_call(
                 'GET',
                 '/admin/v1/bypass_codes',

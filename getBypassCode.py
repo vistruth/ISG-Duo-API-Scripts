@@ -16,7 +16,7 @@ import csv
 import datetime
 
 """
-*This pulls down a list of all bypass codes and then goes through and deletes all the codes. 
+*This pulls down a list of all bypass codes and creates a CSV
 """
 
 keyI = integration
@@ -83,7 +83,7 @@ def getBypassPlusOffset():
             print(f"CSV file '{csv_filename}' has been created successfully.")
             
 
-        for i in repeat(None, 1301):
+        for i in repeat(None, 1):
             getBypassListPlusOffset = admin_api.json_api_call(
                 'GET',
                 '/admin/v1/bypass_codes',

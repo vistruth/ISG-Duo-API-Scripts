@@ -27,9 +27,6 @@ admin_api = duo_client.Admin(
 
 
 
-#Another status update
-print("File has been updated with all information exiting application in 5 seconds. ")
-
 
 #This takes responses.csv which is the csv generated from the looped GET above and puts it in a dataframe to make life easier for data manipulation and merging
 responsesDataframe = pd.read_csv('responses.csv')

@@ -8,3 +8,4 @@ userDeletion.py
 .vscode/settings.json
 bypassResponse.csv
 userBypassCreation.py
+.DS_Store

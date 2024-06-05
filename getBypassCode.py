@@ -8,7 +8,7 @@ import csv
 import base64, email.utils, hmac, hashlib, urllib
 import duo_client
 from six.moves import input
-from keys import *
+from IgnoreFolder.keys import *
 from itertools import repeat
 import pandas as pd
 import time

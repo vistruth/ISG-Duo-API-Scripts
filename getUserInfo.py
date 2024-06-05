@@ -3,7 +3,7 @@ from __future__ import print_function
 import duo_client
 import pprint
 from six.moves import input
-from keys import *
+from IgnoreFolder.keys import *
 from itertools import repeat
 import time
 import sys

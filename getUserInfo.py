@@ -8,6 +8,7 @@ from itertools import repeat
 import time
 import sys
 import pandas as pd
+import csv
 
 #Initializing credentials and hosted point. keyI and keyS are stored in a separate file called keys.py
 keyI = integration
@@ -26,7 +27,7 @@ admin_api = duo_client.Admin(
 
 
 
-#A lot is going on gere but the general gist is get users api call has a rate limit of 300 users per call. If you want more users you need to set an offset. I did the math for 65k users. We need to repeat a + 300 offset 219 times. We're also appending a blank CSV so we can store the values for later. 
+#A lot is going on here but the general gist is get users api call has a rate limit of 300 users per call. If you want more users you need to set an offset. I did the math for 65k users. We need to repeat a + 300 offset 219 times. We're also appending a blank CSV so we can store the values for later. 
 def getUserPlusOffset():
     #initial offset this will get manipulated later on 
     offsetValue = '300'

@@ -14,6 +14,7 @@ import pandas as pd
 import time
 import csv
 import datetime
+import main
 
 """
 *This pulls down a list of all bypass codes and then goes through and deletes all the codes. 
@@ -53,8 +54,6 @@ ts2 = time.time()
 endTime=datetime.datetime.fromtimestamp(ts2).strftime('%Y-%m-%d %H:%M:%S')
 
 print(codesDeleted, "codes have been deleted. Application is exiting in 5 seconds")
-print(startTime)
-print(endTime)
-time.sleep(5)
-sys.exit()
-   
+print("Start time - " + startTime)
+print("End time - " + endTime)
+main.exit()

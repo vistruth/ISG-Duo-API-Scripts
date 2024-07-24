@@ -113,6 +113,9 @@ def getBypassPlusOffset():
             offSetValue = str(int(offSetValue)+500)
 
 
+
+print("List of bypass codes has been generated and saved to bypassResponse.csv. Please move over to the bypassDeletion.py script to delete the list of bypass codes. Script will close in 5 seconds\n\n\n")
+time.sleep(5)
 getBypassPlusOffset()
 print("List of bypass codes has been generated and saved to bypassResponse.csv. Please move over to the bypassDeletion.py script to delete the list of bypass codes. Script will close in 5 seconds")
 time.sleep(5)

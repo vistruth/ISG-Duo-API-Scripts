@@ -9,6 +9,7 @@ import time
 import sys
 import pandas as pd
 import csv
+import main
 
 #Initializing credentials and hosted point. keyI and keyS are stored in a separate file called keys.py
 keyI = integration
@@ -98,4 +99,5 @@ getUserPlusOffset()
 
 
 #Another status update
-print("File has been updated with all information.")
+print("File has been updated with all information.\n\n\n")
+main.exit()

@@ -39,11 +39,12 @@ def main_menu():
     while option == 0:
         print("Please select which option you want and enter the number associated with it.")
         print("1 - Get user info")
-        print("2 - Get Bypass code")
-        print("3 - Delete bypass codeGet user info")
+        print("2 - Get Bypass codes")
+        print("3 - Delete bypass codes")
         print("4 - Update alias")
         print("5 - User creation")
         print("6 - User deletion")
+        print("7 - Exit")
         option = int(input("(Use numbers only) Enter number here: "))
         if option == 1:
             import getUserInfo
@@ -57,6 +58,10 @@ def main_menu():
             import userCreation
         elif option == 6:
             import userDeletion
+        elif option == 7:
+            print("Application will exit in 5 seconds, Thanks")
+            time.sleep(5)
+            sys.exit()
         else:
             print("This option isn't available, redirecting back to the main menu.\n\n")
             main_menu()
